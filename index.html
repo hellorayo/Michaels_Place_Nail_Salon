@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Michael's Place Nail Salon — South Shore Plaza, Braintree MA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blush:  #f2e4db;
+      --rose:   #c9877a;
+      --deep:   #3a2a26;
+      --warm:   #f8f1ec;
+      --accent: #b06e62;
+      --text:   #4a3830;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--warm);
+      color: var(--text);
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    /* NAV */
+    nav {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 1.5rem;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: #fff;
+      letter-spacing: 0.04em;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.3);
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-left: 1.5rem;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 100svh;
+      min-height: 560px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, rgba(42,24,20,0.78) 0%, rgba(42,24,20,0.40) 55%, rgba(42,24,20,0.10) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 6rem 1.5rem 2rem;
+      max-width: 560px;
+      opacity: 0;
+      transform: translateY(28px);
+      animation: fadeUp 1s 0.3s forwards;
+    }
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blush);
+      margin-bottom: 1rem;
+      opacity: 0.85;
+    }
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 8vw, 3.6rem);
+      line-height: 1.15;
+      color: #fff;
+      margin-bottom: 1.2rem;
+    }
+    .hero-headline em { font-style: italic; color: var(--blush); }
+    .hero-sub {
+      font-size: 0.97rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      max-width: 380px;
+    }
+    .hero-cta {
+      display: inline-block;
+      background: var(--rose);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.9rem 2rem;
+      border-radius: 2px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .hero-badge {
+      position: absolute;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 2;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 4px;
+      padding: 0.7rem 1rem;
+      color: #fff;
+      font-size: 0.78rem;
+      text-align: center;
+      opacity: 0;
+      animation: fadeUp 1s 0.8s forwards;
+    }
+    .hero-badge .stars { font-size: 0.9rem; }
+    .hero-badge .rating { font-family: 'Playfair Display', serif; font-size: 1.3rem; }
+
+    /* SERVICES */
+    .services { padding: 4rem 1.5rem; background: var(--warm); }
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      color: var(--deep);
+      margin-bottom: 2.5rem;
+      line-height: 1.25;
+    }
+    .services-grid { display: grid; grid-template-columns: 1fr; gap: 2px; }
+    .service-card {
+      background: #fff;
+      padding: 1.8rem 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+      border-left: 3px solid transparent;
+      transition: border-color 0.25s;
+    }
+    .service-card:hover, .service-card:active { border-left-color: var(--rose); }
+
+    /*
+      =====================================================
+      HOW TO ADD YOUR OWN SERVICE ICONS
+      =====================================================
+      1. Save your icon images (PNG or SVG) in the same
+         folder as this index.html file.
+         Recommended size: 64x64px, transparent background.
+
+      2. Find the three <img class="service-icon-img"> tags
+         below (one for Nails, Lashes, Waxing).
+
+      3. Change the src="" to your filename, for example:
+            src="icon-nails.png"
+            src="icon-lashes.svg"
+            src="icon-waxing.png"
+
+      4. The emoji fallback will automatically hide when
+         your image loads successfully.
+      =====================================================
+    */
+    .service-icon-wrap {
+      flex-shrink: 0;
+      width: 52px; height: 52px;
+      background: var(--blush);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .service-icon-img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      padding: 10px;
+      display: none;
+    }
+    .service-icon-emoji { font-size: 1.4rem; }
+    .service-text { flex: 1; }
+    .service-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--deep);
+      margin-bottom: 0.4rem;
+    }
+    .service-desc { font-size: 0.88rem; font-weight: 300; line-height: 1.7; color: #7a5f57; }
+
+    /* GALLERY */
+    .gallery { padding: 4rem 0 4rem 1.5rem; background: var(--warm); overflow: hidden; }
+    .gallery-header { padding-right: 1.5rem; margin-bottom: 1.8rem; }
+    .gallery-header .section-title { margin-bottom: 0.4rem; }
+    .gallery-header p { font-size: 0.88rem; font-weight: 300; color: #7a5f57; }
+    .gallery-scroll {
+      display: flex;
+      gap: 0.8rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      padding-right: 1.5rem;
+      padding-bottom: 0.5rem;
+    }
+    .gallery-scroll::-webkit-scrollbar { display: none; }
+    .gallery-item {
+      flex-shrink: 0;
+      width: 200px;
+      height: 200px;
+      border-radius: 4px;
+      overflow: hidden;
+      scroll-snap-align: start;
+      background: var(--blush);
+      position: relative;
+    }
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s;
+    }
+    .gallery-item:hover img { transform: scale(1.04); }
+    /* Placeholder slot shown when no image is provided */
+    .gallery-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: var(--rose);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-align: center;
+      padding: 1rem;
+      border: 2px dashed rgba(201,135,122,0.3);
+      border-radius: 4px;
+    }
+    .gallery-placeholder .ph-icon { font-size: 1.8rem; opacity: 0.5; }
+    .gallery-hint {
+      margin-top: 1.2rem;
+      padding-right: 1.5rem;
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: #a08880;
+      font-style: italic;
+    }
+    @media (min-width: 640px) {
+      .gallery { padding: 5rem 0 5rem 3rem; }
+      .gallery-header { padding-right: 3rem; }
+      .gallery-item { width: 240px; height: 240px; }
+      .gallery-hint { padding-right: 3rem; }
+    }
+    @media (min-width: 1024px) {
+      .gallery { padding: 5rem 0 5rem 4rem; }
+      .gallery-header { padding-right: 4rem; }
+      .gallery-item { width: 280px; height: 280px; }
+      .gallery-hint { padding-right: 4rem; }
+    }
+
+    /* MISSION */
+    .mission { background: var(--deep); padding: 4rem 1.5rem; }
+    .mission .section-label { color: var(--blush); opacity: 0.7; }
+    .mission .section-title { color: #fff; margin-bottom: 1.2rem; }
+    .mission p { font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: rgba(255,255,255,0.75); margin-bottom: 1rem; }
+    .detail-list { margin-top: 1.5rem; list-style: none; }
+    .detail-list li {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.65);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      gap: 0.8rem;
+    }
+    .detail-list li span:first-child { color: var(--rose); }
+    .appt-note {
+      margin-top: 1.5rem;
+      font-size: 0.85rem !important;
+      font-weight: 300;
+      color: rgba(255,255,255,0.45) !important;
+      line-height: 1.7;
+    }
+    .appt-note a { color: rgba(255,255,255,0.6); text-decoration: underline; text-underline-offset: 3px; }
+    .testimonials { margin-top: 2.5rem; }
+    .testimonial-slider { overflow: hidden; border-radius: 6px; }
+    .testimonial-track {
+      display: flex;
+      transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+    }
+    .testimonial-card {
+      min-width: 100%;
+      background: rgba(255,255,255,0.06);
+      border-left: 2px solid var(--rose);
+      padding: 1.6rem 1.4rem;
+    }
+    .testimonial-stars { color: var(--rose); font-size: 0.9rem; letter-spacing: 0.1em; margin-bottom: 0.8rem; }
+    .testimonial-text {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--blush);
+      line-height: 1.7;
+      margin-bottom: 0.8rem;
+    }
+    .testimonial-author { font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+    .testimonial-dots { display: flex; gap: 0.5rem; margin-top: 1.2rem; }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.2);
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.3s;
+    }
+    .dot.active { background: var(--rose); }
+
+    /* FIND US */
+    .find-us { padding: 4rem 1.5rem; background: var(--blush); }
+    .find-us .section-title { margin-bottom: 0.8rem; }
+    .find-us > p { font-size: 0.95rem; font-weight: 300; line-height: 1.8; color: var(--text); margin-bottom: 1.5rem; }
+
+    .map-link {
+      display: block;
+      width: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 4px 20px rgba(58,42,38,0.15);
+      position: relative;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .map-link iframe {
+      width: 100%;
+      height: 220px;
+      border: none;
+      display: block;
+      pointer-events: none;
+    }
+    .map-tap-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 1rem;
+    }
+    .map-tap-label {
+      background: var(--deep);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.5rem 1.2rem;
+      border-radius: 20px;
+      opacity: 0.92;
+    }
+    .directions-btn {
+      display: inline-block;
+      background: var(--deep);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.9rem 1.8rem;
+      border-radius: 2px;
+      margin-bottom: 2.5rem;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .hours-block { background: #fff; padding: 2rem 1.5rem; border-radius: 4px; box-shadow: 0 2px 12px rgba(58,42,38,0.07); }
+    .hours-block h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--deep); margin-bottom: 1rem; }
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      font-weight: 300;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid var(--blush);
+      color: var(--text);
+    }
+    .hours-row:last-of-type { border-bottom: none; }
+    .walk-in-note { margin-top: 1.2rem; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rose); }
+
+    /* FOOTER */
+    footer {
+      background: var(--deep);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.8rem;
+      font-weight: 300;
+      line-height: 1.9;
+    }
+    footer a { color: var(--blush); text-decoration: none; }
+
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+    /* TABLET */
+    @media (min-width: 640px) {
+      nav { padding: 1.5rem 3rem; }
+      .hero-content { padding: 6rem 3rem 2rem; }
+      .services { padding: 5rem 3rem; }
+      .services-grid { grid-template-columns: repeat(3, 1fr); }
+      .service-card { flex-direction: column; gap: 0; }
+      .service-icon-wrap { margin-bottom: 1rem; }
+      .mission { padding: 5rem 3rem; }
+      .find-us { padding: 5rem 3rem; }
+      .map-link iframe { height: 280px; }
+    }
+
+    /* DESKTOP */
+    @media (min-width: 1024px) {
+      nav { padding: 1.5rem 4rem; }
+      .hero-content { padding: 0 4rem; max-width: 640px; }
+      .hero-badge { right: 4rem; bottom: 2.5rem; }
+      .services { padding: 6rem 4rem; }
+      .mission { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; padding: 5rem 4rem; align-items: center; }
+      .testimonials { margin-top: 0; }
+      .find-us { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; padding: 5rem 4rem; align-items: start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Michael's Place Nail Salon</div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#mission">About</a>
+    <a href="#find-us">Find Us</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <img class="hero-img" src="coverart.jpg" alt="Happy customer getting nails done at Michael's Place" />
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">South Shore Plaza · Braintree, MA</p>
+    <h1 class="hero-headline">Walk in anytime and <em>let us pamper you.</em></h1>
+    <p class="hero-sub">Nails, lash extensions, and waxing — done right, with care, no appointment needed. Proudly serving Braintree since 2008.</p>
+    <a href="#find-us" class="hero-cta">Find Us in the Mall</a>
+  </div>
+  <div class="hero-badge">
+    <div class="stars">★★★★</div>
+    <div class="rating">3.6</div>
+    <div>Google Reviews</div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <p class="section-label">What We Do</p>
+  <h2 class="section-title">Everything you need, all in one place.</h2>
+  <div class="services-grid">
+
+    <div class="service-card">
+      <div class="service-icon-wrap">
+        <!-- NAILS: change src to your icon filename e.g. src="icon-nails.png" -->
+        <img class="service-icon-img" src="" alt="Nails icon" />
+        <span class="service-icon-emoji">💅</span>
+      </div>
+      <div class="service-text">
+        <div class="service-name">Nails</div>
+        <p class="service-desc">Manicures, pedicures, gel, acrylics, and more. Our team takes pride in every detail so your nails leave a lasting impression.</p>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon-wrap">
+        <!-- LASHES: change src to your icon filename e.g. src="icon-lashes.png" -->
+        <img class="service-icon-img" src="" alt="Lashes icon" />
+        <span class="service-icon-emoji">✨</span>
+      </div>
+      <div class="service-text">
+        <div class="service-name">Lash Extensions</div>
+        <p class="service-desc">Wake up beautiful. Our lash extensions are applied with precision and care for a natural, full look that lasts.</p>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon-wrap">
+        <!-- WAXING: change src to your icon filename e.g. src="icon-waxing.png" -->
+        <img class="service-icon-img" src="" alt="Waxing icon" />
+        <span class="service-icon-emoji">🌸</span>
+      </div>
+      <div class="service-text">
+        <div class="service-name">Waxing</div>
+        <p class="service-desc">Quick, clean, and comfortable. From brows to full body, we make sure every visit leaves you feeling smooth and confident.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!--
+  =====================================================
+  GALLERY — HOW TO ADD YOUR PHOTOS
+  =====================================================
+  Each .gallery-item below holds one photo.
+  To add a real photo:
+    1. Put your image file in the same folder as index.html
+    2. Replace the placeholder div with:
+       <img src="your-photo.jpg" alt="Description of the nail work" />
+  Recommended: Square images, at least 400x400px.
+  Add or remove .gallery-item divs to change the count.
+  =====================================================
+-->
+<section class="gallery" id="gallery">
+  <div class="gallery-header">
+    <p class="section-label">Our Work</p>
+    <h2 class="section-title">See what we can do for you.</h2>
+    <p>A look at some of our recent work — nails, lashes, and more.</p>
+  </div>
+  <div class="gallery-scroll">
+
+    <div class="gallery-item">
+      <!-- Replace with: <img src="gallery-1.jpg" alt="Nail design" /> -->
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📸</span>
+        <span>Add photo</span>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <!-- Replace with: <img src="gallery-2.jpg" alt="Nail design" /> -->
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📸</span>
+        <span>Add photo</span>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <!-- Replace with: <img src="gallery-3.jpg" alt="Nail design" /> -->
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📸</span>
+        <span>Add photo</span>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <!-- Replace with: <img src="gallery-4.jpg" alt="Nail design" /> -->
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📸</span>
+        <span>Add photo</span>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <!-- Replace with: <img src="gallery-5.jpg" alt="Nail design" /> -->
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📸</span>
+        <span>Add photo</span>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <!-- Replace with: <img src="gallery-6.jpg" alt="Nail design" /> -->
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📸</span>
+        <span>Add photo</span>
+      </div>
+    </div>
+
+  </div>
+  <p class="gallery-hint">Swipe to see more →</p>
+</section>
+
+<section class="mission" id="mission">
+  <div>
+    <p class="section-label">Our Mission</p>
+    <h2 class="section-title">Looking good shouldn't be complicated.</h2>
+    <p>At Michael's Place, we believe every woman deserves to feel beautiful — without the hassle of appointments or long waits. We're conveniently located inside South Shore Plaza so you can treat yourself while you shop.</p>
+    <p>With over 18 years serving the South Shore community, our team takes pride in every detail, every time.</p>
+    <ul class="detail-list">
+      <li><span>✓</span><span>Serving the community since 2008</span></li>
+      <li><span>✓</span><span>Walk-ins always welcome</span></li>
+      <li><span>✓</span><span>Attention to every detail</span></li>
+      <li><span>✓</span><span>Nails · Lashes · Waxing</span></li>
+      <li><span>✓</span><span>Located inside South Shore Plaza</span></li>
+    </ul>
+    <p class="appt-note">Prefer to plan ahead? We're happy to take appointments too — just give us a call at <a href="tel:7815795980">(781) 579-5980</a>.</p>
+  </div>
+  <div class="testimonials">
+    <p class="section-label" style="color:var(--blush);opacity:0.7;margin-bottom:1.2rem;">What Our Customers Say</p>
+    <div class="testimonial-slider">
+      <div class="testimonial-track" id="testimonialTrack">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">&ldquo;They did such a great job on my mani/pedi! 10/10 would recommend.&rdquo;</p>
+          <span class="testimonial-author">&mdash; Brittany</span>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">&ldquo;Always nice and welcoming. I get to relax and get pampered. Thank you!&rdquo;</p>
+          <span class="testimonial-author">&mdash; Savannah</span>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">&ldquo;Great manicures and pedicures. Lots of different packages to choose from to pamper your feet. I highly recommend Michael&rsquo;s Place.&rdquo;</p>
+          <span class="testimonial-author">&mdash; Debbie</span>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-dots">
+      <button class="dot active" onclick="goToSlide(0)" aria-label="Testimonial 1"></button>
+      <button class="dot" onclick="goToSlide(1)" aria-label="Testimonial 2"></button>
+      <button class="dot" onclick="goToSlide(2)" aria-label="Testimonial 3"></button>
+    </div>
+  </div>
+</section>
+
+<section class="find-us" id="find-us">
+  <div>
+    <p class="section-label">Visit Us</p>
+    <h2 class="section-title">We're easy to find.</h2>
+    <p>Located on the first floor of South Shore Plaza in Braintree, MA — underneath the food court. Next time you're shopping, stop in. No appointment needed, ever.</p>
+
+    <a class="map-link"
+       href="https://maps.google.com/?q=South+Shore+Plaza,+250+Granite+St,+Braintree,+MA+02184"
+       target="_blank"
+       rel="noopener"
+       aria-label="Open directions in Maps">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2954.8881654788!2d-71.00287668454402!3d42.207958979193925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e4805d8d7a84ab%3A0xd3b47b396e0c4c4a!2sSouth%20Shore%20Plaza!5e0!3m2!1sen!2sus!4v1680000000000!5m2!1sen!2sus"
+        allowfullscreen=""
+        loading="lazy"
+        title="South Shore Plaza location">
+      </iframe>
+      <div class="map-tap-overlay">
+        <span class="map-tap-label">📍 Tap for Directions</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="hours-block">
+    <h3>Hours</h3>
+    <div class="hours-row"><span>Monday – Saturday</span><span>10am – 8pm</span></div>
+    <div class="hours-row"><span>Sunday</span><span>11am – 6pm</span></div>
+    <p class="walk-in-note">✦ Walk-ins always welcome</p>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Michael's Place Nail Salon</p>
+  <p>South Shore Plaza · 250 Granite St, Braintree, MA</p>
+  <p><a href="tel:7815795980">(781) 579-5980</a></p>
+</footer>
+
+<script>
+  // Testimonial slider
+  var currentSlide = 0;
+  var totalSlides = 3;
+  var autoplayTimer;
+
+  function goToSlide(n) {
+    currentSlide = n;
+    var track = document.getElementById('testimonialTrack');
+    if (track) track.style.transform = 'translateX(-' + (n * 100) + '%)';
+    document.querySelectorAll('.dot').forEach(function(d, i) {
+      d.classList.toggle('active', i === n);
+    });
+    resetAutoplay();
+  }
+
+  function nextSlide() {
+    goToSlide((currentSlide + 1) % totalSlides);
+  }
+
+  function resetAutoplay() {
+    clearInterval(autoplayTimer);
+    autoplayTimer = setInterval(nextSlide, 4000);
+  }
+
+  resetAutoplay();
+
+  // Auto-show custom icons if a valid src is set; otherwise keep emoji
+  document.querySelectorAll('.service-icon-img').forEach(function(img) {
+    if (img.getAttribute('src')) {
+      img.style.display = 'block';
+      var emoji = img.parentElement.querySelector('.service-icon-emoji');
+      img.onerror = function() {
+        img.style.display = 'none';
+        if (emoji) emoji.style.display = 'block';
+      };
+      img.onload = function() {
+        if (emoji) emoji.style.display = 'none';
+      };
+    }
+  });
+</script>
+
+</body>
+</html>
