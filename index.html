@@ -36,12 +36,12 @@
     }
     .nav-logo {
       font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 600;
       color: #fff;
       letter-spacing: 0.02em;
       text-shadow: 0 1px 8px rgba(0,0,0,0.4);
-      line-height: 1.25;
+      white-space: nowrap;
     }
     .hamburger {
       background: none;
@@ -129,7 +129,7 @@
     .hero-content {
       position: relative;
       z-index: 2;
-      padding: 5rem 1.6rem 2rem;
+      padding: 4rem 1.6rem 2rem;
       width: 100%;
       max-width: 600px;
       opacity: 0;
@@ -138,7 +138,7 @@
     }
     .hero-headline {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.4rem, 9vw, 3.8rem);
+      font-size: clamp(1.7rem, 7vw, 3.8rem);
       font-weight: 600;
       line-height: 1.12;
       color: #fff;
@@ -146,11 +146,11 @@
     }
     .hero-headline em { font-style: italic; color: var(--blush); font-weight: 400; }
     .hero-sub {
-      font-size: 1rem;
+      font-size: 0.88rem;
       font-weight: 300;
       color: rgba(255,255,255,0.85);
-      line-height: 1.75;
-      margin-bottom: 2rem;
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
       max-width: 400px;
     }
     .hero-cta {
@@ -486,7 +486,7 @@
 
 <!-- NAV BAR -->
 <nav>
-  <div class="nav-logo">Michael's Place<br>Nail Salon</div>
+  <div class="nav-logo">Michael's Place Nail Salon</div>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Open menu">
     <span></span><span></span><span></span>
   </button>
@@ -513,33 +513,27 @@
   <div class="gallery-scroll">
 
     <div class="gallery-item">
-      <!-- Replace with: <img src="gallery-2.jpg" alt="Blood Red Nail design with plaid details" /> -->
-      <div class="gallery-placeholder"><span class="ph-icon">📸</span><span>Add photo</span></div>
+	<img src="gallery-2.jpg" alt="Blood Red Nail design with plaid details" />
     </div>
 
     <div class="gallery-item">
-      <!-- Replace with: <img src="gallery-1.jpg" alt="Red White Pink Nail design" /> -->
-      <div class="gallery-placeholder"><span class="ph-icon">📸</span><span>Add photo</span></div>
+      <img src="gallery-1.jpg" alt="Red White Pink Nail design" />
     </div>
 
     <div class="gallery-item">
-      <!-- Replace with: <img src="gallery-3.jpg" alt="Christmas Nail art with plaid stamp bow details" /> -->
-      <div class="gallery-placeholder"><span class="ph-icon">📸</span><span>Add photo</span></div>
+      <img src="gallery-3.jpg" alt="Christmas Nail art with plaid stamp bow details" />
     </div>
 
     <div class="gallery-item">
-      <!-- Replace with: <img src="gallery-4.jpg" alt="Nail design white pink red plaid" /> -->
-      <div class="gallery-placeholder"><span class="ph-icon">📸</span><span>Add photo</span></div>
+      <img src="gallery-4.jpg" alt="Nail design white pink red plaid" />
     </div>
 
     <div class="gallery-item">
-      <!-- Replace with: <img src="gallery-5.jpg" alt="Nail art glitter green sparkly with plants and scissors" /> -->
-      <div class="gallery-placeholder"><span class="ph-icon">📸</span><span>Add photo</span></div>
+      <img src="gallery-5.jpg" alt="Nail art glitter green sparkly with plants and scissors" />
     </div>
 
     <div class="gallery-item">
-      <!-- Replace with: <img src="gallery-6.jpg" alt="Acrylic nails light blue" /> -->
-      <div class="gallery-placeholder"><span class="ph-icon">📸</span><span>Add photo</span></div>
+      <img src="gallery-6.jpg" alt="Acrylic nails light blue" />
     </div>
 
   </div>
